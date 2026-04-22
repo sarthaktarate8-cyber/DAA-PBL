@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomLink | Intelligent Hostel Allocation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <h1>RoomLink <span>Hostel Allocation System</span></h1>
+            <p>Powered by Graph Algorithms</p>
+        </header>
+        <main class="dashboard">
+            <section class="controls panel">
+                <h2>Allocate Room</h2>
+                <form id="allocateForm">
+                    <div class="input-group">
+                        <label for="studentId">Student ID</label>
+                        <input type="number" id="studentId" required placeholder="e.g. 101">
+                    </div>
+                    <div class="input-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" required placeholder="Sarthak">
+                    </div>
+                    <div class="input-group">
+                        <label for="prefBlock">Preferred Block</label>
+                        <select id="prefBlock">
+                            <option value="A">Block A</option>
+                            <option value="B">Block B</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="prefFloor">Preferred Floor</label>
+                        <select id="prefFloor">
+                            <option value="1">Floor 1</option>
+                            <option value="2">Floor 2</option>
+                            <option value="3">Floor 3</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Allocate via Graph Logic</button>
+                </form>
+                <hr class="divider">
+                <h2>Actions</h2>
+                <div class="action-buttons">
+                    <button id="btnVacant" class="btn secondary-btn" onclick="showVacant()">View Vacant Rooms</button>
+                    <button id="btnDfs" class="btn secondary-btn" onclick="document.getElementById('dfsModal').style.display='flex'">Deep Inspection (DFS)</button>
+                    <button id="btnSearch" class="btn secondary-btn" onclick="document.getElementById('searchModal').style.display='flex'">Search Student</button>
+                </div>
+            </section>
+            <section class="topology panel">
+                <div class="topology-header">
+                    <h2>Hostel Topology</h2>
+                    <div class="legend">
+                        <span class="legend-item"><span class="box vacant"></span> Vacant</span>
+                        <span class="legend-item"><span class="box occupied"></span> Occupied</span>
+                        <span class="legend-item"><span class="box maintenance"></span> Maintenance</span>
+                    </div>
+                </div>
+                <div id="graphVisualization" class="graph-grid">
+                </div>
+            </section>
+        </main>
+    </div>
+    <div id="outputModal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" onclick="closeOutput()">&times;</span>
+            <h2 id="modalTitle">System Output</h2>
+            <div id="modalBody" class="terminal-output">
+            </div>
+        </div>
+    </div>
+    <div id="dfsModal" class="modal">
+        <div class="modal-content glass-panel" style="max-height: 250px;">
+            <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2>Deep Inspection</h2>
+            <select id="dfsBlock" style="margin-top:10px;">
+                <option value="A">Block A</option>
+                <option value="B">Block B</option>
+            </select>
+            <button onclick="runDFS()" class="btn primary-btn mt-1">Run DFS</button>
+        </div>
+    </div>
+    <div id="searchModal" class="modal">
+        <div class="modal-content glass-panel" style="max-height: 250px;">
+            <span class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2>Search Room by ID</h2>
+            <input type="number" id="searchId" placeholder="Student ID" style="margin-top:10px;">
+            <button onclick="runSearch()" class="btn primary-btn mt-1">Search</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
